@@ -22,8 +22,7 @@ class MainActivity : ComponentActivity() {
             MiPrimeraAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        Greeting(name = "Profe")
-                        Presentacion()
+                        FichaDelEstudiante()
                     }
                 }
             }
@@ -32,34 +31,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun FichaDelEstudiante() {
+    val nombre = "Ana"
+    val edad = 20
+    val promedio = 8.25
+    val cursaProgramacion = true
+    val materias: Int = 5
+    val ciudad: String = "Cordoba"
 
-@Composable
-fun Presentacion(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(text = "Mi nombre es Tomas")
-        Text(text = "Estudio Ingenieria en Informatica")
-        Text(text = "Android y Kotlin")
+    Column() {
+        Text("Nombre: $nombre")
+        Text("Edad: $edad")
+        Text("Promedio: $promedio")
+        Text("Cursa Programacion: $cursaProgramacion")
+        Text("Año Proximo: ${edad + 1}")
+        Text("Materias: $materias")
+        Text("Ciudad: $ciudad")
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    MiPrimeraAppTheme {
-        Greeting("Android")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PresentacionPreview() {
-    MiPrimeraAppTheme {
-        Presentacion()
+fun FichaDelEstudiantePreview() {
+    MiPrimeraAppTheme() {
+        FichaDelEstudiante()
     }
 }
