@@ -25,9 +25,9 @@ class MainActivity : ComponentActivity() {
                         DatoEstudiante("Nombre", "Ana")
                         DatoEstudiante("Carrera", "Sistemas")
                         DatoEstudiante("Anio", "1")
-                        Text("${descripcionEdad(30)}")
-                        Text("${descripcionEdadModif(15)}")
-                        Text("${descripcionEdadModif(24)}")
+                        Text(descripcionEdad(30))
+                        Text(descripcionEdadModif(15))
+                        Text(descripcionEdadModif(24))
 
                     }
                 }
