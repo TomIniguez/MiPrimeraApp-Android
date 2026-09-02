@@ -22,7 +22,13 @@ class MainActivity : ComponentActivity() {
             MiPrimeraAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        FichaDelEstudiante()
+                        DatoEstudiante("Nombre", "Ana")
+                        DatoEstudiante("Carrera", "Sistemas")
+                        DatoEstudiante("Anio", "1")
+                        Text("${descripcionEdad(30)}")
+                        Text("${descripcionEdadModif(15)}")
+                        Text("${descripcionEdadModif(24)}")
+
                     }
                 }
             }
@@ -31,29 +37,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun FichaDelEstudiante() {
-    val nombre = "Ana"
-    val edad = 20
-    val promedio = 8.25
-    val cursaProgramacion = true
-    val materias: Int = 5
-    val ciudad: String = "Cordoba"
-
-    Column() {
-        Text("Nombre: $nombre")
-        Text("Edad: $edad")
-        Text("Promedio: $promedio")
-        Text("Cursa Programacion: $cursaProgramacion")
-        Text("Año Proximo: ${edad + 1}")
-        Text("Materias: $materias")
-        Text("Ciudad: $ciudad")
-    }
+fun DatoEstudiante(etiqueta: String, valor: String) {
+    Text("$etiqueta: $valor")
 }
+
 
 @Preview(showBackground = true)
 @Composable
-fun FichaDelEstudiantePreview() {
+fun DatoEstudiantePreview() {
     MiPrimeraAppTheme() {
-        FichaDelEstudiante()
+        DatoEstudiante("Anio", "1")
+    }
+}
+
+fun descripcionEdad(edad: Int): String {
+    return "Edad: $edad anios"
+}
+
+fun descripcionEdadModif(edad: Int): String {
+    if (edad < 18){
+        return "Mi edad es $edad anios y soy menor de edad"
+    }
+    else{
+        return "Mi edad es $edad anios y soy mayor de edad"
     }
 }
