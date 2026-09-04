@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ContadorDeNumeros() {
+
     var contador by remember { mutableIntStateOf(0) }
 
     // Wrap everything in a Column to stack elements vertically
@@ -65,7 +66,7 @@ fun ContadorDeNumeros() {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { contador-- }, enabled = contador > 1) {
+            Button(onClick = { contador-- }, enabled = contador > 1) { //no puede ser 0
                 Text(text = "-1", fontSize = 20.sp)
             }
 
