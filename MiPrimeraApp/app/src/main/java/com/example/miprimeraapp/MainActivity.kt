@@ -75,7 +75,7 @@ fun ContadorDeNumeros() {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { contador-- }, enabled = contador > 1) { //no puede ser 0
+            Button(onClick = { contador-- }, enabled = contador > 0) { //no puede ser 0
                 Text(text = "-1", fontSize = 20.sp)
             }
 
