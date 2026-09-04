@@ -1,111 +1,104 @@
 package com.example.miprimeraapp
 
-import android.R.attr.background
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.miprimeraapp.ui.theme.MiPrimeraAppTheme
-import com.example.miprimeraapp.ui.theme.Purple40
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            MiPrimeraAppTheme {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)) {
-                    Text(
-                        text = "Perfil",
-                        style = MaterialTheme.typography.titleLarge,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(top = 32.dp, bottom = 8.dp)
-                    )
-                    DatoEstudiante("Nombre", "Ana")
-                    DatoEstudiante("Carrera", "Sistemas")
-                    DatoEstudiante("Anio", "1")
-                    Text(descripcionEdad(30))
-                    Text(descripcionEdadModif(15))
-                    Text(descripcionEdadModif(24))
-                    BotonGuardar()
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    ContadorDeNumeros()
                 }
-
             }
         }
     }
 }
 
 @Composable
-fun DatoEstudiante(etiqueta: String, valor: String) {
-    Row(
+fun ContadorDeNumeros() {
+    var contador by remember { mutableIntStateOf(0) }
+
+    // Wrap everything in a Column to stack elements vertically
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.SpaceBetween // Separa etiqueta a la izquierda y valor a la derecha
-    ){
-        Text("$etiqueta: $valor")
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DatoEstudiantePreview() {
-    MiPrimeraAppTheme() {
-        DatoEstudiante("Anio", "1")
-    }
-}
-
-fun descripcionEdad(edad: Int): String {
-    return "Edad: $edad anios"
-}
-
-//Calculador de edad
-fun descripcionEdadModif(edad: Int): String {
-    if (edad < 18){
-        return "Mi edad es $edad anios y soy menor de edad"
-    }
-    else{
-        return "Mi edad es $edad anios y soy mayor de edad"
-    }
-}
-
-@Composable
-fun BotonGuardar(){
-    Button(
-        onClick = { },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF6200EE)
-        ),// This turns the whole button purple
-        modifier = Modifier
-            //.background(color = Color(0xFF6200EE)) Te llena el espacio
-            .fillMaxWidth()
-            .padding(16.dp)
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
+        // Display the count
         Text(
-            text = "Guardar",
-            fontWeight = FontWeight.Bold,
-            color = Color.White
+            text = "Cuenta: $contador",
+            style = MaterialTheme.typography.headlineLarge
         )
+
+        // Row 1: Increase / Decrease Buttons
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(onClick = { contador-- }, enabled = contador > 1) {
+                Text(text = "-1", fontSize = 20.sp)
+            }
+
+            Button(onClick = { contador++ }) {
+                Text(text = "+1", fontSize = 20.sp)
+            }
+        }
+
+        // Row 2: Reset Button
+        Button(
+            onClick = { contador = 0 }, // Reset state back to 0
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF6200EE)
+            ),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "REINICIAR",
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
